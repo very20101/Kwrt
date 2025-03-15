@@ -11,7 +11,7 @@
 
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
-@@ -349,6 +349,30 @@ define Device/cetron_ct3003
+@@ -349,6 +349,28 @@ define Device/cetron_ct3003
  endef
  TARGET_DEVICES += cetron_ct3003
  
@@ -34,6 +34,7 @@
 +  IMAGES += factory.bin
 +  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
 +  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
++endef
 +TARGET_DEVICES += cmcc_a10
 +
  define Device/cmcc_rax3000m

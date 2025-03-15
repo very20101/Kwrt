@@ -23,7 +23,7 @@ on:
 
 env:
   #TOKEN_KIDDIN9: ${{ secrets.TOKEN_KIDDIN9 }}
-  TOKEN_KIDDIN9: kwrt0001_pat
+  TOKEN_KIDDIN9: https://github.com/very20101/Kwrt/settings/secrets/actions/KWRT0001_PAT
   TZ: Asia/Shanghai
 
 jobs:

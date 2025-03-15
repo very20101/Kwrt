@@ -6,7 +6,7 @@
 # code url https://github.com/haiibo
 #===============================================
 
-name: pack_newK
+name: pack_opwrt
 on:
   workflow_dispatch:
   #schedule:

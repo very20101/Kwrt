@@ -292,6 +292,24 @@ jobs:
         rm -rf staging_dir/toolchain-*/initial
         df -hT
 
+    - name: Upload Bin Directory
+      if: steps.compile.conclusion == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{ env.SOURCE_REPO }}-${{ env.LITE_BRANCH }}-${{ env.DEVICE_TARGET }}-bin-${{ env.FILE_DATE }}
+        path: ${{ env.OPENWRT_PATH }}/bin
+
+    - name: Packaging OpenWrt
+      if: steps.compile.conclusion == 'success'
+      uses: haiibo/flippy-openwrt-actions@main
+      env:
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
+        KERNEL_REPO_URL: ophub/kernel
+        KERNEL_USAGE: flippy
+        PACKAGE_SOC: s905d_s905x3
+        KERNEL_VERSION_NAME: 6.1.y_6.6.y
+        KERNEL_AUTO_LATEST: true
+
     - name: Organize files
       id: organize
       continue-on-error: true
@@ -323,7 +341,8 @@ jobs:
       with:
         name: ${{ env.VERSION }}_${{matrix.target}}
         path: |
-          openwrt/bin/targets/
+          #openwrt/bin/targets/
+          openwrt/bin/targets/*/*/*rootfs.tar.gz
 
     - name: Create release
       id: create_release

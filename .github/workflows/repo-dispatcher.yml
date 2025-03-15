@@ -41,9 +41,9 @@ jobs:
 
     - name: Load Settings.ini
       run: |
-        source "${GITHUB_WORKSPACE}/devices-new/common/settings.ini"
-        if [ -f "devices-new/${{matrix.target}}/settings.ini" ]; then
-          source "${GITHUB_WORKSPACE}/devices-new/${{matrix.target}}/settings.ini"
+        source "${GITHUB_WORKSPACE}/devices/common/settings.ini"
+        if [ -f "devices/${{matrix.target}}/settings.ini" ]; then
+          source "${GITHUB_WORKSPACE}/devices/${{matrix.target}}/settings.ini"
         fi
         echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
         echo "REPO_BRANCH=${REPO_BRANCH}" >> $GITHUB_ENV

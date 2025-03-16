@@ -330,7 +330,7 @@ jobs:
       with:
         name: ${{ env.VERSION }}_${{matrix.target}}
         path: |
-          openwrt/bin/targets/*/*/*rootfs.tar.gz
+          openwrt/bin/targets/*/*/
           
     - name: Upload firmware for release
       uses: softprops/action-gh-release@master

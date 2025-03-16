@@ -330,7 +330,6 @@ jobs:
       with:
         name: ${{ env.VERSION }}_${{matrix.target}}
         path: |
-          #openwrt/bin/targets/
           openwrt/bin/targets/*/*/*rootfs.tar.gz
           
     - name: Upload firmware for release

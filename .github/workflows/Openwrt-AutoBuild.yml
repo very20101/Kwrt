@@ -331,28 +331,6 @@ jobs:
         name: ${{ env.VERSION }}_${{matrix.target}}
         path: |
           openwrt/bin/targets/*/*/
-          
-    - name: Upload firmware for release
-      uses: softprops/action-gh-release@master
-      continue-on-error: true
-      if: env.REPO_TOKEN && env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true'
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_KIDDIN9 }}
-      with:
-        files: "${{ env.FIRMWARE }}/*"
-        name: ${{ env.date2 }} ${{matrix.target}} ${{ env.EMOJI }}
-        tag_name: ${{ env.date }}_${{matrix.target}}
-        #body_path: release.txt
-        
-    - name: Package OpenWrt Firmware
-      if: steps.compile.conclusion == 'success'
-      uses: ophub/flippy-openwrt-actions@main
-      env:
-        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
-        KERNEL_REPO_URL: ophub/kernel
-        PACKAGE_SOC: s905d_s905x3
-        KERNEL_VERSION_NAME: 6.1.y_6.6.y
-        KERNEL_AUTO_LATEST: true
 
     - name: Create release
       id: create_release
@@ -364,6 +342,28 @@ jobs:
         [ ${{ env.WETRANS }} ] && echo -e "[WeTransfer] (${{ env.WETRANS }} 🗽)\n" >> release.txt
         [ ${{ env.COWURL }} ] && echo -e "[奶牛上传] (${{ env.COWURL }} 🐮)\n" >> release.txt
         [ ${{ env.NOTICE }} ] && echo -e "${{ env.NOTICE }}" >> release.txt || true
+          
+    - name: Upload firmware for release
+      uses: softprops/action-gh-release@master
+      continue-on-error: true
+      if: env.REPO_TOKEN && env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN_KIDDIN9 }}
+      with:
+        files: "${{ env.FIRMWARE }}/*"
+        name: ${{ env.date2 }} ${{matrix.target}} ${{ env.EMOJI }}
+        tag_name: ${{ env.date }}_${{matrix.target}}
+        body_path: release.txt
+        
+    - name: Package OpenWrt Firmware
+      if: steps.compile.conclusion == 'success'
+      uses: ophub/flippy-openwrt-actions@main
+      env:
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
+        KERNEL_REPO_URL: ophub/kernel
+        PACKAGE_SOC: s905d_s905x3
+        KERNEL_VERSION_NAME: 6.1.y_6.6.y
+        KERNEL_AUTO_LATEST: true
     
     - name: WeChat notification
       continue-on-error: true
